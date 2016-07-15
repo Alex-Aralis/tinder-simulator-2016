@@ -1,8 +1,8 @@
 //tutorial1.js
 
-const API_DOMAIN = 'localhost:3030';
-const API_USER_PATH = 'api/user';
-
+const API_PROTOCOL = 'https';
+const API_DOMAIN = 'tinder-simulator-2016-server.herokuapp.com';
+const API_USER_PATH = 'api/v1/users';
 
 let ProfileImg = React.createClass({
   render: function(){
@@ -66,8 +66,7 @@ let Profile = React.createClass({
     "https://unsplash.it/800/700/?random"
     return (
       <div className="profile" onClick={this.props.handleSwipeRight}>
-        <div className="title-bar" />
-        <ProfileImg className="imageContainer" imgUrl={this.props.user.imgUrl} />
+        <ProfileImg className="imageContainer" imgUrl={this.props.user.imgurl} />
         <ProfileInfo className="userInfo" name={this.props.user.name} age={this.props.user.age} />
         <ProfileBio className="profileBio" entries={this.props.user.bio} />
         <ProfileControls />
@@ -76,12 +75,17 @@ let Profile = React.createClass({
   }
 });
 
-let ImageContainer = React.createClass({
-  render: function(){
+let Intro = React.createClass({
+  render: function () {
+    return (
+      <div onClick={this.props.handleSwipeRight}>
+        <p> this is the intro page. click my face to start getting hott Tinder matches </p>
+      </div>
+    );
   }
 });
 
-var Main = React.createClass({
+let Main = React.createClass({
   loadUserFromServer: function (){
     $.ajax({
       url: this.props.url,
@@ -95,28 +99,39 @@ var Main = React.createClass({
       }
     });
   },
-  handleSwipRight: function() {
+  handleSwipeRight: function() {
     this.setState({stateString: "loading"});
-    loadUserFromServer();
+    this.loadUserFromServer();
   },
   getInitialState: function(){
     return {stateString: "intro", user: {
       bio: ['this is a test', 'do not panic'], 
       name: "Sammy", 
       age: "36",
-      imgUrl: "https://unsplash.it/600/400/?random",
+      imgurl: "https://unsplash.it/600/400/?random",
     }};
   },
   render: function() {
-    return (
-        <div className="main">
-          <Profile user={this.state.user} handleSwipRight={this.handleSwipeRight} />
-        </div>
-        );
+    switch (this.state.stateString){
+      case 'displaying':
+        return (
+            <div className="main">
+              <Profile user={this.state.user} handleSwipeRight={this.handleSwipeRight} />
+            </div>
+          );
+
+      case 'loading':
+        return (<p>loading</p>);
+
+      case 'intro':
+        return (<Intro handleSwipeRight={this.handleSwipeRight} />);
+    }
   }
 });
 
+
+
 ReactDOM.render(
-    <Main url={`http://${API_DOMAIN}/${API_USER_PATH}`}/>,
+    <Main url={`${API_PROTOCOL}://${API_DOMAIN}/${API_USER_PATH}`}/>,
     document.getElementById('content')
   );
