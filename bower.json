@@ -1,0 +1,19 @@
+{
+  "name": "tinder-simulator-2016",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Alex Aralis"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Alex-Aralis/tinder-simulator-2016",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
