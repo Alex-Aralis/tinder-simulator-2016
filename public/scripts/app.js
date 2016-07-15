@@ -4,27 +4,28 @@ const API_PROTOCOL = 'https';
 const API_DOMAIN = 'tinder-simulator-2016-server.herokuapp.com';
 const API_USER_PATH = 'api/v1/users';
 
-let ProfileImg = React.createClass({
-  render: function(){
-    return (
-        <div>
-          <div>
-            <img src={this.props.imgUrl} />
-          </div>
-        </div>
-      );
-  },
-});
-
 let ProfileInfo = React.createClass({
   render:function(){
     return (
-        <div className="profileInfo">
+        <div id="info" className="profileInfo">
           <span className="profileName">{this.props.name}</span>
           <span className="profileAge">{this.props.age}</span> 
         </div>
       );
   }
+});
+
+let ProfileImg = React.createClass({
+  render: function(){
+    return (
+        <div >
+          <div id="profilePic">
+            <img className="center" height="210" width="280" src={this.props.user.imgurl} />
+            <ProfileInfo name={this.props.user.name} age={this.props.user.age}/>
+          </div>
+        </div>
+      );
+  },
 });
 
 let ProfileBioEntry = React.createClass({
@@ -55,7 +56,7 @@ let ProfileControls = React.createClass({
   render: function(){
     return (
         <div className="profileControls">
-          <img src="https://unsplash.it/600/200/?random" />
+          <img className="center" height="180" width="450" src="img/tinder-buttons2.png" />
         </div>
       );
   }
@@ -66,8 +67,7 @@ let Profile = React.createClass({
     "https://unsplash.it/800/700/?random"
     return (
       <div className="profile" onClick={this.props.handleSwipeRight}>
-        <ProfileImg className="imageContainer" imgUrl={this.props.user.imgurl} />
-        <ProfileInfo className="userInfo" name={this.props.user.name} age={this.props.user.age} />
+        <ProfileImg className="imageContainer" user={this.props.user} />
         <ProfileBio className="profileBio" entries={this.props.user.bio} />
         <ProfileControls />
       </div>
