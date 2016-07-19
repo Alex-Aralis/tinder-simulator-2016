@@ -54,4 +54,4 @@ heroku create
 git push heroku master
 ```
 
-After these step heroku should begin it's setup process.
+After these step heroku should begin it's setup process.  Do a `heroku open` to see the newly start webpage.
