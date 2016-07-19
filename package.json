@@ -1,10 +1,13 @@
 {
+  "engines": {
+    "node": "6.2.0"
+  },
   "name": "tinder-simulator-2016",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "http-server public -p 8080",
+    "start": "http-server public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
